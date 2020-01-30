@@ -46,55 +46,16 @@ public class OI {
 
   Button hatchGrabberButton = new JoystickButton(controllerXBox, B_BUTTON_XBOX);
   Button hatchPusherButton = new JoystickButton(controllerXBox, A_BUTTON_XBOX);
-  //Button lightAlignmentButton = new JoystickButton(manipulatorJoystick, START_ARROW);
-
-  //Button visionAlignmentButton = new JoystickButton(driverXBox, BUTTON_12_JOYSTICK);
   Button turnRightButton = new JoystickButton(driverXBox,RIGHT_BUMPER_XBOX_DRIVE);
   Button turnLeftButton = new JoystickButton(driverXBox,LEFT_BUMPER_XBOX_DRIVE);
-  //Button turnRight90Button = new JoystickButton(driverXBox, BUTTON_5_JOYSTICK);
-  //Button turnLeft90Button = new JoystickButton(driverXBox, BUTTON_6_JOYSTICK);
-
   Button justDanceButton = new JoystickButton(driverXBox, A_BUTTON_XBOX);
-  //Button secondLevelLift = new JoystickButton(manipulatorJoystick, X_BUTTON_XBOX);
-  //Button thirdLevelLift = new JoystickButton(manipulatorJoystick, Y_BUTTON_XBOX);
 
-  Button extendBothPneumatics = new JoystickButton(controllerXBox, START_ARROW);
-  Button retractBothPneumatics = new JoystickButton(driverXBox, BACK_ARROW);
-  Button retractFrontPneumatic = new JoystickButton(controllerXBox, LEFT_BUMPER_XBOX);
-  Button retractBackPneumatic = new JoystickButton(controllerXBox, RIGHT_BUMPER_XBOX);
-  
-  //Button driveOffHab = new JoystickButton(manipulatorJoystick, LEFT_BUMPER_XBOX);
-  //Button driveOntoHab = new JoystickButton(manipulatorJoystick, X_BUTTON_XBOX);
-
-  //Button switchCamera = new JoystickButton(driverXBox, JOYSTICK_RIGHT_CLICK);
-  
   Button autoReverse = new JoystickButton(controllerXBox, Y_BUTTON_XBOX);
-
-  //Button lockLift = new JoystickButton(manipulatorJoystick, RIGHT_BUMPER_XBOX);
-
-  //Button lightSensor = new JoystickButton(driverXBox, BUTTON_9_JOYSTICK);
-
 
   public OI() {
     turnRightButton.whenPressed(new GyroscopeTurn(3));
     turnLeftButton.whenPressed(new GyroscopeTurn(-3));
-
     justDanceButton.whenPressed(new EncoderDrive(200,0.5));
-
-    //turnRight90Button.whenPressed(new GyroscopeTurn(-90));
-    //turnLeft90Button.whenPressed(new GyroscopeTurn(90));
-  
-
-    //switchCamera.whenPressed(new SwitchCamera());
-
-    //driveOffHab.whenPressed(new RightCargoAuto());
-    //driveOntoHab.whenPressed(new DriveHABMotor());
-
-    //lockLift.whenPressed(new LockLift(RobotMap.LOCK_LIFT_SPEED)); //THIS IS A HOLDER VALUE, FIGURE OUT WHAT SPEED THE LIFT DRIFTS DOWN AT!!! please
-    
-    //lightSensor.whenPressed(new LightSensor(100));
-    
-
   }
 
   public XboxController getDriverXBox() {

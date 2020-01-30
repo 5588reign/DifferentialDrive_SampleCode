@@ -14,30 +14,6 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
-
-  public static final int FRONT_LEFT_MOTOR = 12;
-  public static final int BACK_LEFT_MOTOR = 13;
-  public static final int FRONT_RIGHT_MOTOR = 14;
-  public static final int BACK_RIGHT_MOTOR = 15;
-
-  public static final int LEFT_ENCODER_SOURCE_A = 0;
-  public static final int LEFT_ENCODER_SOURCE_B = 1;
-
-  public static final int RIGHT_ENCODER_SOURCE_A = 2;
-  public static final int RIGHT_ENCODER_SOURCE_B = 3;
-
-  public static final int LIFTER_ENCODER_SOURCE_A = 4;
-  public static final int LIFTER_ENCODER_SOURCE_B = 5;
-
-  
-
-  public static final int RIGHT_IS_READING = 1;
-  public static final int FORWARD_IS_READING = 2;
-  public static final int LEFT_IS_READING = 3;
-  public static final int NONE_IS_READING = 0;
-  public static final int BACK_MIDDLE_READING = 4;
-
-
   //public static final double LOCK_LIFT_SPEED = .1;
 
   // For example to map the left and right motors, you could define the

@@ -11,28 +11,26 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class GyroscopeTurn extends Command {
-  private double degreesTurned = 0;
   private double degreesToTravel = 0;
+  private double degreesTurned = 0;
   private boolean isTurningRight;
   private boolean returnToCenter = false;
 
   public GyroscopeTurn(double degreesToTravel) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this.degreesToTravel = degreesToTravel;
     if(degreesToTravel == 0) {
       returnToCenter = true;
     }
-    if (degreesToTravel > 0) {
+    else if (degreesToTravel > 0) {
       isTurningRight = true;
     }
     else {
       isTurningRight = false;
     }
     
-  
     requires(Robot.gyroscope);
-    requires(Robot.drive);
+    //requires(Robot.drive);
   }
 
   // Called just before this Command runs the first time
