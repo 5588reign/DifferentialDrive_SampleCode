@@ -7,17 +7,23 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.DifferentialDrive;
+import frc.robot.subsystems.Encoder;
 import frc.robot.subsystems.Gyroscope;
 
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
 /**
@@ -28,7 +34,7 @@ import frc.robot.subsystems.Gyroscope;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static Drive drive = new Drive();
+  public static Encoder encoder = new Encoder();
   public static Gyroscope gyroscope = new Gyroscope();
   public static OI m_oi;
   public static UsbCamera camera1;
@@ -40,16 +46,22 @@ public class Robot extends TimedRobot {
   private static final int IMG_WIDTH = 320;
   private static final int IMG_HEIGHT = 240;
 
-  //private VisionThread visionThread;
   public double centertapeOneX = 0.0;
   public double centertapeTwoX = 0.0;
   public static double turnAwayFromCenter = 0.0;
 
-  //private final Object imgLock = new Object();
-
-
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  public static SpeedController frontLeftMotor = new CANSparkMax(1, null);
+  public static SpeedController backLeftMotor = new CANSparkMax(3, null);
+  public static SpeedController frontRightMotor = new CANSparkMax(2, null);
+  public static SpeedController backRightMotor = new CANSparkMax(4, null);
+
+  public static SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
+  public static SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(frontRightMotor, backRightMotor);
+
+  public static DifferentialDrive drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
   
 
   /**
@@ -72,19 +84,6 @@ public class Robot extends TimedRobot {
     camera3 = CameraServer.getInstance().startAutomaticCapture("camera floor", 2);
     camera3.setBrightness(1);
     camera3.setResolution(IMG_WIDTH, IMG_HEIGHT);
-
-    /*visionThread = new VisionThread(camera3, new VisionGripPipeline(), pipeline -> { 
-      if (!pipeline.filterContoursOutput().isEmpty()) {
-        Rect tape1 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-        Rect tape2 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(1));
-        synchronized (imgLock) {
-          centertapeOneX = tape1.x + (tape1.width / 2);
-          centertapeTwoX = tape2.x + (tape2.width / 2);
-        }
-      }
-    });
-    
-    visionThread.start();*/
     
     camera1 = CameraServer.getInstance().startAutomaticCapture("camera front", 0);
     camera1.setBrightness(1);
@@ -107,8 +106,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Right Encoder Avg", (drive.frontRightEncoder.getPosition() + drive.backRightEncoder.getPosition())/2);
-    SmartDashboard.putNumber("Left Encoder Avg", (drive.frontLeftEncoder.getPosition() + drive.backLeftEncoder.getPosition())/2);
+    Encoder.displayEncoders();
   }
 
   /**
@@ -118,7 +116,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    drive.resetEncoders();
+    Encoder.resetEncoders();
   }
 
   @Override
