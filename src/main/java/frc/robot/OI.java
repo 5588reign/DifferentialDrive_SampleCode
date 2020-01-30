@@ -40,6 +40,7 @@ public class OI {
   private static final int START_ARROW_DRIVE = 8;
   private static final int JOYSTICK_RIGHT_CLICK = 10;
   private static final int JOYSTICK_LEFT_CLICK = 9;
+  //Left thumbstick is 1, right thumbstick is 5
 
   private final XboxController driverXBox = new XboxController(1);
   private final XboxController controllerXBox = new XboxController(2);
@@ -65,6 +66,7 @@ public class OI {
   public XboxController getControllerXBox() {
     return controllerXBox;
   }
+
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.

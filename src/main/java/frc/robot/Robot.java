@@ -22,8 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DifferentialDrive;
 import frc.robot.subsystems.Encoder;
 import frc.robot.subsystems.Gyroscope;
-
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import frc.robot.OI;
 
 
 /**
@@ -107,6 +106,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     Encoder.displayEncoders();
+    drive.tankDrive(m_oi.getDriverXBox().getRawAxis(1), m_oi.getDriverXBox().getRawAxis(5), true);
   }
 
   /**

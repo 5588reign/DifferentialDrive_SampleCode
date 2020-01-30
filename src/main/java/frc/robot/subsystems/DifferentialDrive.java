@@ -20,15 +20,11 @@ import edu.wpi.first.wpiutil.math.MathUtil;
  * An example subsystem. You can replace me with your own Subsystem.
  */
 public class DifferentialDrive extends RobotDriveBase implements Sendable, AutoCloseable {
-  public static final double kDefaultQuickStopThreshold = 0.2;
-  public static final double kDefaultQuickStopAlpha = 0.1;
-
   private final SpeedController m_leftMotor;
   private final SpeedController m_rightMotor;
 
   private double m_rightSideInvertMultiplier = -1.0;
   private boolean m_reported;
-  //private double m_deadband = RobotDriveBase.kDefaultDeadband;
 
   public DifferentialDrive(SpeedController leftMotor, SpeedController rightMotor) {
     m_leftMotor = leftMotor;
@@ -76,11 +72,13 @@ public class DifferentialDrive extends RobotDriveBase implements Sendable, AutoC
   public void setSpeed(double leftSpeed, double rightSpeed) {
     m_leftMotor.set(leftSpeed * m_maxOutput);
     m_rightMotor.set(rightSpeed * m_maxOutput * m_rightSideInvertMultiplier);
+    feed();
   }
 
   public void setSpeed(double speed) {
     m_leftMotor.set(speed * m_maxOutput);
     m_rightMotor.set(speed * m_maxOutput * m_rightSideInvertMultiplier);
+    feed();
   }
 
   /**
