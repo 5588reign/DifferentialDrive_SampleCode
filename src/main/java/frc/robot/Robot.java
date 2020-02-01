@@ -8,6 +8,8 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANEncoder;
 
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
@@ -33,7 +35,7 @@ import frc.robot.OI;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static Encoder encoder = new Encoder();
+  public static Encoder m_encoder = new Encoder();
   public static Gyroscope gyroscope = new Gyroscope();
   public static OI m_oi;
   public static UsbCamera camera1;
@@ -52,15 +54,15 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-  public static SpeedController frontLeftMotor = new CANSparkMax(1, null);
-  public static SpeedController backLeftMotor = new CANSparkMax(3, null);
-  public static SpeedController frontRightMotor = new CANSparkMax(2, null);
-  public static SpeedController backRightMotor = new CANSparkMax(4, null);
+  public CANSparkMax frontLeftMotor = new CANSparkMax(1, MotorType.kBrushless);
+  public CANSparkMax backLeftMotor = new CANSparkMax(3, MotorType.kBrushless);
+  public CANSparkMax frontRightMotor = new CANSparkMax(2, MotorType.kBrushless);
+  public CANSparkMax backRightMotor = new CANSparkMax(4, MotorType.kBrushless);
 
-  public static SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
-  public static SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(frontRightMotor, backRightMotor);
+  public SpeedControllerGroup leftMotorGroup = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
+  public SpeedControllerGroup rightMotorGroup = new SpeedControllerGroup(frontRightMotor, backRightMotor);
 
-  public static DifferentialDrive drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
+  public DifferentialDrive drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
   
 
   /**
@@ -105,7 +107,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    Encoder.displayEncoders();
+    m_encoder.displayEncoders();
     drive.tankDrive(m_oi.getDriverXBox().getRawAxis(1), m_oi.getDriverXBox().getRawAxis(5), true);
   }
 
@@ -116,7 +118,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    Encoder.resetEncoders();
+    m_encoder.resetEncoders();
   }
 
   @Override

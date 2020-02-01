@@ -24,13 +24,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Encoder extends Subsystem {
   //distance per pulse = pi * the wheel diameter in inches / pulse per revolution * fudge factor
   private static final double DISTANCE_PER_PULSE_INCHES = (Math.PI * 6) / 10.5 * 1;
+  private Robot m_robot = new Robot();
 
-  public static CANEncoder frontLeftEncoder = new CANEncoder((CANSparkMax)Robot.frontLeftMotor);
-  public static CANEncoder backLeftEncoder = new CANEncoder((CANSparkMax)Robot.backLeftMotor);
-  public static CANEncoder frontRightEncoder = new CANEncoder((CANSparkMax)Robot.frontRightMotor);
-  public static CANEncoder backRightEncoder = new CANEncoder((CANSparkMax)Robot.backRightMotor);
+  public CANEncoder frontLeftEncoder = new CANEncoder((CANSparkMax)m_robot.frontLeftMotor);
+  public CANEncoder backLeftEncoder = new CANEncoder((CANSparkMax)m_robot.backLeftMotor);
+  public CANEncoder frontRightEncoder = new CANEncoder((CANSparkMax)m_robot.frontRightMotor);
+  public CANEncoder backRightEncoder = new CANEncoder((CANSparkMax)m_robot.backRightMotor);
 
-  public static void resetEncoders() {
+  public void resetEncoders() {
     frontLeftEncoder.setPosition(0.0);
     backLeftEncoder.setPosition(0.0);
     frontRightEncoder.setPosition(0.0);
@@ -45,15 +46,15 @@ public class Encoder extends Subsystem {
     resetEncoders();
   } 
 
-  public static double getRightEncoderDistance(){
+  public double getRightEncoderDistance(){
     return (frontRightEncoder.getPosition() + backRightEncoder.getPosition())/2;
   }
 
-  public static double getLeftEncoderDistance(){
+  public double getLeftEncoderDistance(){
     return (frontLeftEncoder.getPosition() + backLeftEncoder.getPosition())/2;
   }
 
-  public static void displayEncoders(){
+  public void displayEncoders(){
   SmartDashboard.putNumber("Right Encoder Avg", (frontRightEncoder.getPosition() + backRightEncoder.getPosition())/2);
   SmartDashboard.putNumber("Left Encoder Avg", (frontLeftEncoder.getPosition() + backLeftEncoder.getPosition())/2);
   }

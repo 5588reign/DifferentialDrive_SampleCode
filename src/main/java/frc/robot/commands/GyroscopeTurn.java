@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.DifferentialDrive;
 
 public class GyroscopeTurn extends Command {
   private double degreesToTravel = 0;
@@ -53,10 +54,10 @@ public class GyroscopeTurn extends Command {
   protected void execute() {
     degreesTurned = Robot.gyroscope.getAngle();
     if (isTurningRight) {
-      Robot.drive.setSpeed(.3, -.3);
+      //Robot.drive.setSpeed(.3, -.3);
     }
     else {
-      Robot.drive.setSpeed(-.3, .3);
+      //Robot.drive.setSpeed(-.3, .3);
     }
     System.out.println(degreesTurned);
   }

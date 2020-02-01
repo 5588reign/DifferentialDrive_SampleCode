@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Encoder;
+import frc.robot.subsystems.DifferentialDrive;
 
 public class EncoderDrive extends Command {
     private double targetEncoderDistLeft;
@@ -19,8 +20,8 @@ public class EncoderDrive extends Command {
 
   public EncoderDrive(double distance, double speed) {
       this.speed = speed;
-      targetEncoderDistLeft = Encoder.getLeftEncoderDistance() + distance;
-      targetEncoderDistRight = Encoder.getRightEncoderDistance() + distance;
+      targetEncoderDistLeft = Robot.m_encoder.getLeftEncoderDistance() + distance;
+      targetEncoderDistRight = Robot.m_encoder.getRightEncoderDistance() + distance;
       isBackwards = distance < 0 ? true : false;
 }
 
@@ -35,14 +36,14 @@ public class EncoderDrive extends Command {
         if(isBackwards == true){
             speed *= -1;
         }
-        Robot.drive.setSpeed(speed);
+        //Robot.drive.setSpeed(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        double distanceLeft = targetEncoderDistLeft - Encoder.getRightEncoderDistance();
-        double distanceRight = targetEncoderDistRight - Encoder.getRightEncoderDistance();
+        double distanceLeft = targetEncoderDistLeft - Robot.m_encoder.getRightEncoderDistance();
+        double distanceRight = targetEncoderDistRight - Robot.m_encoder.getRightEncoderDistance();
         boolean distance = (distanceLeft == 0 && distanceRight == 0) ? true : false;
         return distance;
     }
